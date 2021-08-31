@@ -56,13 +56,11 @@ public class LargeCommands {
             FileWriter writer = new FileWriter(file);
             writer.write(doc.html());
             writer.close();
+            CommandHandler.sendMessage(event, "Here are your results:- " + searchURL);
             CommandHandler.sendFile(event, file);
-        } catch (StringIndexOutOfBoundsException ex) {
+        } catch (StringIndexOutOfBoundsException | IOException ex) {
             CommandHandler.sendMessage(event,
                     "Please type search text after typing '>gsearch' and " + "put space between command and text.");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            CommandHandler.sendMessage(event, "Error. Please report the dev about this (UnknownPro 56).");
         }
     }
 
@@ -92,38 +90,31 @@ public class LargeCommands {
         System.out.println("Args: " + argsList);
         try {
             switch (argsList.get(1)) {
-                case ("+"): {
+                case ("+") -> {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 + num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
-                    break;
                 }
-                case ("-"): {
+                case ("-") -> {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 - num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
-                    break;
                 }
-                case ("*"): {
+                case ("*") -> {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 * num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
-                    break;
                 }
-                case ("/"): {
+                case ("/") -> {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 / num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
-                    break;
                 }
-                default: {
-                    CommandHandler.sendMessage(event, "Not a valid operation symbol. Valid ones are +, -, * and /.");
-                    break;
-                }
+                default -> CommandHandler.sendMessage(event, "Not a valid operation symbol. Valid ones are +, -, * and /.");
             }
         } catch (NumberFormatException ex) {
             CommandHandler.sendMessage(event, "Please provide a number, as '>calc (num1),(+ or - or * or /),(num2)'.");
