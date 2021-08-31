@@ -9,12 +9,24 @@ public class CommandHandler {
             if (event.getMessage().getContentRaw().charAt(0) == '>') {
                 System.out.println("Bot was asked: " + event.getMessage().getContentRaw());
                 switch (event.getMessage().getContentRaw()) {
-                    case ">ping" -> SmallCommands.ping(event);
-                    case ">hello" -> SmallCommands.hello(event);
-                    case ">dt" -> SmallCommands.dt(event);
-                    case ">help" -> SmallCommands.help(event);
-                    case ">replies" -> SmallCommands.replies(event);
-                    default -> LargeCommandHandler.handleCommand(event);
+                    case ">ping":
+                        SmallCommands.ping(event);
+                        break;
+                    case ">hello":
+                        SmallCommands.hello(event);
+                        break;
+                    case ">dt":
+                        SmallCommands.dt(event);
+                        break;
+                    case ">help":
+                        SmallCommands.help(event);
+                        break;
+                    case ">replies":
+                        SmallCommands.replies(event);
+                        break;
+                    default:
+                        LargeCommandHandler.handleCommand(event);
+                        break;
                 }
             } else {
                 if (getReply(text) != null) LargeCommands.customReply(event, getReply(text));

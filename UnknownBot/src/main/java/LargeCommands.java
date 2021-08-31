@@ -92,31 +92,38 @@ public class LargeCommands {
         System.out.println("Args: " + argsList);
         try {
             switch (argsList.get(1)) {
-                case ("+") -> {
+                case ("+"): {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 + num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
+                    break;
                 }
-                case ("-") -> {
+                case ("-"): {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 - num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
+                    break;
                 }
-                case ("*") -> {
+                case ("*"): {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 * num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
+                    break;
                 }
-                case ("/") -> {
+                case ("/"): {
                     float num1 = Float.parseFloat(argsList.get(0));
                     float num2 = Float.parseFloat(argsList.get(2));
                     float result = num1 / num2;
                     CommandHandler.sendMessage(event, num1 + " " + argsList.get(1) + " " + num2 + " = " + result);
+                    break;
                 }
-                default -> CommandHandler.sendMessage(event, "Not a valid operation symbol. Valid ones are +, -, * and /.");
+                default: {
+                    CommandHandler.sendMessage(event, "Not a valid operation symbol. Valid ones are +, -, * and /.");
+                    break;
+                }
             }
         } catch (NumberFormatException ex) {
             CommandHandler.sendMessage(event, "Please provide a number, as '>calc (num1),(+ or - or * or /),(num2)'.");
@@ -132,10 +139,7 @@ public class LargeCommands {
         try {
             String text = event.getMessage().getContentRaw();
             String[] args = text.split(",");
-            ArrayList<String> argsList = new ArrayList<>();
-            for (String string : args) {
-                argsList.add(string);
-            }
+            ArrayList<String> argsList = new ArrayList<>(Arrays.asList(args));
             argsList.set(0, argsList.get(0).replace(">reply ", ""));
             System.out.println("Args: " + argsList);
             if (!argsList.get(0).isEmpty() && !argsList.get(1).isEmpty()) {
