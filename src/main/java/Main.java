@@ -39,12 +39,8 @@ public class Main extends ListenerAdapter {
     		try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(arrayFile))) {
     			LargeCommands.customReplies = (Map<String, String>) objectInputStream.readObject();
     		}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 }
