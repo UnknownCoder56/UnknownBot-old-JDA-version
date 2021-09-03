@@ -19,7 +19,7 @@ public class Main extends ListenerAdapter {
     public static JDA bot;
     public static void main(String[] args) throws LoginException {
     	initData();
-        bot = JDABuilder.createDefault(Secret.getKey())
+        bot = JDABuilder.createDefault(System.getenv("TOKEN"))
                 .addEventListeners(new Main())
                 .setActivity(Activity.listening("your commands (which start with '>')"))
                 .build();
