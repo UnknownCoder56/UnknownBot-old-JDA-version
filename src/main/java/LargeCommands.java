@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -173,5 +175,20 @@ public class LargeCommands {
             }
         }
         CommandHandler.sendMessage(event, "No reply named '" + event.getMessage().getContentRaw().substring(9) + "' was found!");
+    }
+
+    public static void clearMessages(@NotNull MessageReceivedEvent event) {
+        String[] args = event.getMessage().getContentRaw().split(" ");
+        try {
+            OffsetDateTime twoWeeksAgo = OffsetDateTime.now().minus(2, ChronoUnit.WEEKS);
+            int messagesToClear = Integer.parseInt(args[1]);
+            List<Message> messages = event.getChannel().getHistory().retrievePast(messagesToClear + 1).complete();
+            messages.removeIf(m -> m.getTimeCreated().isBefore(twoWeeksAgo));
+            event.getChannel().purgeMessages(messages);
+            event.getChannel().sendMessageEmbeds(new EmbedBuilder()
+                    .setTitle(event.getAuthor().getName() + " cleared " + (messages.size() - 1) + " message(s) in: " + event.getChannel().getName()).build()).queue();
+        } catch (InsufficientPermissionException ex) {
+            CommandHandler.sendMessage(event, "I don't have enough permissions to purge messages!");
+        }
     }
 }

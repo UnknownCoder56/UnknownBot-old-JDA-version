@@ -10,6 +10,7 @@ public class LargeCommandHandler {
         else if (text.contains(">calc")) LargeCommands.calc(event);
         else if (text.contains(">reply")) LargeCommands.setCustomReply(event);
         else if (text.contains(">noreply")) LargeCommands.noReply(event);
+        else if (text.contains(">clear")) LargeCommands.clearMessages(event);
         else CommandHandler.sendMessage(event, "No such command was found! Type '>help' to view available commands.");
     }
 }
