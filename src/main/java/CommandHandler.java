@@ -14,6 +14,7 @@ public class CommandHandler {
                     case ">dt" -> SmallCommands.dt(event);
                     case ">help" -> SmallCommands.help(event);
                     case ">replies" -> SmallCommands.replies(event);
+                    case ">botinfo" -> SmallCommands.botinfo(event);
                     default -> LargeCommandHandler.handleCommand(event);
                 }
             } else {
